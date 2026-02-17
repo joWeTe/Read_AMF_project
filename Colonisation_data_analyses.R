@@ -1,8 +1,8 @@
-install.packages("rstatix")
-install.packages("dunn.test")
-install.packages("tidyverse")
-install.packages("ggsignif")
-install.packages("patchwork")
+#install.packages("rstatix")
+#install.packages("dunn.test")
+#install.packages("tidyverse")
+#install.packages("ggsignif")
+#install.packages("patchwork")
 
 
 library(dunn.test)
@@ -17,7 +17,7 @@ library(dplyr)
 # Import data and check if imported properly
 
 
-data<-read.csv("C:/Users/jrafa/OneDrive/Ambiente de Trabalho/Internship AMF/AMF_RESULTS_CSV_3.csv",header=T)
+data<-read.csv("C:/Users/jrafa/OneDrive/Ambiente de Trabalho/AMF_publication/AMF_RESULTS_CSV_3.csv",header=T)
 
 show(data)
 
@@ -269,7 +269,25 @@ ggplot(data, aes(x = Type, y = F_RS)) +
   
   ylim(NA, 110)
 
+# Calculate mean F_RS per root Type
+mean_values <- data %>%
+  group_by(Type) %>%
+  summarise(
+    mean_F_RS = mean(F_RS, na.rm = TRUE),
+    sd_F_RS = sd(F_RS, na.rm = TRUE)
+  )
 
+mean_values
+
+# Calculate mean F_RS per root Type
+mean_values <- data %>%
+  group_by(Site) %>%
+  summarise(
+    mean_F_RS = mean(F_RS, na.rm = TRUE),
+    sd_F_RS = sd(F_RS, na.rm = TRUE)
+  )
+
+mean_values
 
 
 ##Plots DV = IC_RS for both Site (1) and Type (2)
@@ -352,7 +370,4 @@ ggplot(data, aes(x = Type, y = AA_RS)) +
   labs(title = "Percentage of Arbuscule Abundance in Root system by Root Type",
        x = "Root Type",
        y = "Arbuscule Abundance")
-
-
-
 
